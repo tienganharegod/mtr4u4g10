@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ms Lê Hằng English - Volunteering Practice Test (Ex 4 - Ex 7)</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+  :root {
+    --primary-pink: #FF80BF;
+    --primary-pink-dark: #FF52A3;
+    --pastel-bg: #FFF0F6;
+    --pastel-card: #FFFFFF;
+    --pastel-purple: #D8B4FE;
+    --pastel-green: #00D26A;
+    --pastel-red: #FF4757;
+    --pastel-yellow: #FDCB6E;
+    --text-color: #2D3436;
+    --border-radius: 18px;
+    --box-shadow-3d: 0 6px 0px rgba(0,0,0,0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  body {
+    background: linear-gradient(-45deg, #FFB6C1, #FFC0CB, #E6E6FA, #FFF0F5, #FFD1DC);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+    background-image: 
+      radial-gradient(circle, rgba(255,128,191,0.15) 20%, transparent 20%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'><text x='10' y='30' font-size='22'>🤝</text><text x='60' y='30' font-size='20'>💖</text><text x='30' y='80' font-size='22'>🌱</text><text x='75' y='80' font-size='20'>⭐</text></svg>");
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid #FFD1DC;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    z-index: 100;
+  }
+
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .header-title h1 {
+    font-size: 1.2rem;
+    color: var(--primary-pink-dark);
+    font-weight: 900;
+  }
+
+  .passage-tabs {
+    display: flex;
+    gap: 6px;
+  }
+
+  .tab-btn {
+    background: #FFF0F6;
+    border: 2px solid var(--primary-pink);
+    color: var(--primary-pink-dark);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 0 var(--primary-pink);
+  }
+
+  .tab-btn:hover {
+    background: var(--primary-pink);
+    color: white;
+  }
+
+  .tab-btn.active {
+    background: var(--primary-pink-dark);
+    color: white;
+    border-color: var(--primary-pink-dark);
+    box-shadow: 0 2px 0 #D63384;
+  }
+
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFF;
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 3px solid var(--primary-pink);
+    box-shadow: var(--box-shadow-3d);
+  }
+
+  .timer-display {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary-pink-dark);
+    min-width: 65px;
+    text-align: center;
+  }
+
+  .btn-timer {
+    background: var(--primary-pink);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 3px 0 var(--primary-pink-dark);
+  }
+
+  .btn-timer:hover { transform: translateY(-2px); }
+
+  .progress-container {
+    width: 20%;
+    background: #E9ECEF;
+    height: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #DEE2E6;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #FF80BF, #00D26A);
+    transition: width 0.4s ease;
+    border-radius: 10px;
+  }
+
+  .main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .pane {
+    flex: 1;
+    width: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    overflow-y: auto;
+    border: 3px solid #FFF;
+    box-shadow: 0 8px 24px rgba(149, 157, 165, 0.15);
+  }
+
+  .passage-content, .exercise-content {
+    display: none;
+  }
+
+  .passage-content.active, .exercise-content.active {
+    display: block;
+  }
+
+  .passage-title {
+    color: var(--primary-pink-dark);
+    font-size: 1.15rem;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 900;
+    border-bottom: 2px dashed var(--primary-pink);
+    padding-bottom: 8px;
+  }
+
+  .paragraph-box {
+    background: #FFF;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #FFE4E1;
+    line-height: 1.7;
+    font-size: 0.96rem;
+  }
+
+  .btn-translate {
+    background: #FFF3BF;
+    color: #D9480F;
+    border: 2px solid #FCC419;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 8px;
+    display: inline-block;
+  }
+
+  .translation-text {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background: #FFF9DB;
+    border-left: 4px solid #FCC419;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #495057;
+  }
+
+  ::selection {
+    background: #D8B4FE;
+    color: #FFF;
+  }
+
+  .highlighted {
+    background-color: #D8B4FE !important;
+    color: white !important;
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  .question-card {
+    background: #FFF;
+    border-radius: 15px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 3px solid #F1F3F5;
+    box-shadow: var(--box-shadow-3d);
+  }
+
+  .question-text {
+    font-weight: 800;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #2D3436;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .option-btn {
+    background: #F8F9FA;
+    border: 2px solid #E9ECEF;
+    padding: 10px 14px;
+    border-radius: 12px;
+    text-align: left;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 3px 0 #DEE2E6;
+    font-size: 0.92rem;
+  }
+
+  .option-btn:hover {
+    background: #FFF0F6;
+    border-color: var(--primary-pink);
+  }
+
+  .option-btn.correct {
+    background: var(--pastel-green) !important;
+    color: white !important;
+    border-color: #00B050 !important;
+    box-shadow: 0 3px 0 #00B050 !important;
+  }
+
+  .option-btn.wrong {
+    background: var(--pastel-red) !important;
+    color: white !important;
+    border-color: #D63031 !important;
+    box-shadow: 0 3px 0 #D63031 !important;
+    animation: shake 0.4s;
+  }
+
+  .explanation-box {
+    display: none;
+    margin-top: 12px;
+    padding: 14px;
+    background: #F0FDF4;
+    border: 2px solid #86EFAC;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .exp-step {
+    margin-bottom: 8px;
+  }
+
+  .exp-step:last-child {
+    margin-bottom: 0;
+  }
+
+  .exp-step strong {
+    color: #15803D;
+    font-weight: 800;
+  }
+
+  .locate-btn {
+    background: #E0E7FF;
+    border: 1px solid #818CF8;
+    color: #4338CA;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .glossary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .glossary-table th, .glossary-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #F1F3F5;
+    font-size: 0.85rem;
+  }
+
+  .glossary-table th {
+    background: var(--primary-pink);
+    color: white;
+    font-weight: 800;
+  }
+
+  .submit-container { text-align: center; margin: 20px 0; }
+
+  .btn-submit {
+    background: linear-gradient(135deg, #00D26A, #00B050);
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #008037;
+    transition: all 0.2s;
+  }
+
+  .btn-submit:hover { transform: translateY(-2px); }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-card {
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    border: 5px solid var(--primary-pink);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .target-highlight { animation: flashHighlight 2s ease; }
+
+  @keyframes flashHighlight {
+    0%, 100% { background: transparent; }
+    50% { background: #FDE047; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="header-title">
+      <h1>Ms Lê Hằng English</h1>
+    </div>
+    <div class="passage-tabs">
+      <button class="tab-btn active" onclick="switchPassage(1)">Ex 4: General Volunteering 🤝</button>
+      <button class="tab-btn" onclick="switchPassage(2)">Ex 5: Helping Kids 👧</button>
+      <button class="tab-btn" onclick="switchPassage(3)">Ex 6: Nursing Home 👵</button>
+      <button class="tab-btn" onclick="switchPassage(4)">Ex 7: Community Benefits 🌟</button>
+    </div>
+  </div>
+
+  <div class="timer-container">
+    <span class="timer-display" id="timerDisplay">20:00</span>
+    <button class="btn-timer" id="timerToggleBtn" onclick="toggleTimer()">BẮT ĐẦU</button>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</header>
+
+<div class="main-container">
+  <!-- LEFT PANE -->
+  <div class="pane" id="leftPane">
+    
+    <!-- PASSAGE 1: EXERCISE 4 - GENERAL VOLUNTEERING -->
+    <div class="passage-content active" id="passage1">
+      <h2 class="passage-title">READING PASSAGE: GENERAL VOLUNTEERING</h2>
+      <div class="paragraph-box" id="p_ex4">
+        <span id="s_ex4_1">Volunteering to help those in need can be a rewarding experience.</span>
+        <span id="s_ex4_2">When you volunteer, you are giving your time and energy to improve the lives of others.</span>
+        <span id="s_ex4_3">Whether it's helping at a local food bank, <strong>(1) _______</strong> in a homeless shelter, or tutoring children, your actions make a difference.</span>
+        <span id="s_ex4_4">Volunteering does not only benefit the people you help, but it can also <strong>(2) _______</strong> your own confidence.</span>
+        <span id="s_ex4_5">Studies have shown that helping others can make you feel happier and more connected to your community.</span>
+        <span id="s_ex4_6">Many volunteers say that they felt cheerful and rewarded while they <strong>(3) _______</strong> volunteer to help people in need.</span>
+        <span id="s_ex4_7"><strong>(4) _______</strong>, volunteering can teach you new skills and allow you to meet new people who share your values.</span>
+        <span id="s_ex4_8">In the end, the time you give <strong>(5) _______</strong> makes the world a better place, one act of kindness at a time.</span>
+        
+        <div>
+          <button class="btn-translate" onclick="toggleTranslation('t_ex4')">Mở dịch toàn bài 🌟</button>
+          <div class="translation-text" id="t_ex4">Tình nguyện giúp đỡ những người gặp khó khăn có thể là một trải nghiệm bổ ích. Khi bạn làm tình nguyện, bạn đang cống hiến thời gian và sức lực của mình để cải thiện cuộc sống của người khác. Cho dù đó là giúp đỡ tại ngân hàng thực phẩm địa phương, làm việc tại mái ấm người vô gia cư hay dạy kèm cho trẻ em, hành động của bạn đều tạo nên sự khác biệt. Làm tình nguyện không chỉ mang lại lợi ích cho những người bạn giúp đỡ mà còn có thể thúc đẩy sự tự tin của chính bạn. Các nghiên cứu đã chỉ ra rằng giúp đỡ người khác có thể giúp bạn cảm thấy hạnh phúc hơn và kết nối nhiều hơn với cộng đồng của mình. Nhiều tình nguyện viên nói rằng họ cảm thấy vui vẻ và được đền đáp khi họ đang làm công việc tình nguyện giúp đỡ những người cần giúp đỡ. Ngoài ra, làm tình nguyện có thể dạy bạn các kỹ năng mới và cho phép bạn gặp gỡ những người mới có cùng giá trị sống. Cuối cùng, thời gian bạn trao đi thực sự làm cho thế giới trở thành một nơi tốt đẹp hơn, từng hành động tử tế một.</div>
+        </div>
+      </div>
+
+      <h3 class="passage-title" style="font-size: 1rem; margin-top: 20px;">📖 Glossary (Bảng từ vựng Exercise 4)</h3>
+      <table class="glossary-table">
+        <thead>
+          <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rewarding</td><td>adj</td><td>Bổ ích, đáng giá</td></tr>
+          <tr><td>Homeless shelter</td><td>n phr</td><td>Mái ấm người vô gia cư</td></tr>
+          <tr><td>Boost</td><td>v</td><td>Thúc đẩy, gia tăng (= improve)</td></tr>
+          <tr><td>Act of kindness</td><td>n phr</td><td>Hành động tử tế</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PASSAGE 2: EXERCISE 5 - HELPING DISADVANTAGED CHILDREN -->
+    <div class="passage-content" id="passage2">
+      <h2 class="passage-title">READING PASSAGE: HELPING DISADVANTAGED CHILDREN</h2>
+      <div class="paragraph-box" id="p_ex5">
+        <span id="s_ex5_1">Volunteering to help disadvantaged children can have a powerful impact on their lives.</span>
+        <span id="s_ex5_2">Many children in need do not have access to proper education, healthcare, or even daily meals.</span>
+        <span id="s_ex5_3">This situation occurs because <strong>(1) _______</strong>.</span>
+        <span id="s_ex5_4">As a result, they often lack opportunities to develop essential skills and face challenges in their future.</span>
+        <br><br>
+        <span id="s_ex5_5">One way volunteers can help is by spending time with these children and providing them with educational support.</span>
+        <span id="s_ex5_6"><strong>(2) _______</strong>, volunteers can teach them basic subjects or help with homework, which can make a big difference in their learning.</span>
+        <span id="s_ex5_7">Moreover, offering emotional support and encouragement can greatly benefit these children, <strong>(3) _______</strong>.</span>
+        <br><br>
+        <span id="s_ex5_8">In addition, volunteers can help by organizing activities or providing essential supplies like books, clothes, or food.</span>
+        <span id="s_ex5_9">This not only helps meet their basic needs but also shows them that people care about their well-being, <strong>(4) _______</strong>.</span>
+        <br><br>
+        <span id="s_ex5_10">By dedicating time and effort, volunteers can inspire hope and motivate these children to strive for a better future.</span>
+        <span id="s_ex5_11"><strong>(5) _______</strong> can help them overcome challenges and lead a more positive life.</span>
+        <span id="s_ex5_12"><strong>(6) _______</strong>, volunteering to support disadvantaged children is a meaningful way to make a lasting impact on their lives.</span>
+        
+        <div>
+          <button class="btn-translate" onclick="toggleTranslation('t_ex5')">Mở dịch toàn bài 🌟</button>
+          <div class="translation-text" id="t_ex5">Làm tình nguyện giúp đỡ trẻ em có hoàn cảnh khó khăn có thể mang lại tác động mạnh mẽ đến cuộc sống của các em. Nhiều trẻ em có hoàn cảnh khó khăn không được tiếp cận với giáo dục, chăm sóc sức khỏe phù hợp, hoặc thậm chí cả các bữa ăn hàng ngày. Tình trạng này xảy ra vì nhiều trẻ em thiếu các nguồn lực cần thiết. Kết quả là, các em thường thiếu cơ hội phát triển các kỹ năng thiết yếu và đối mặt với nhiều thách thức trong tương lai.<br><br>Một cách tình nguyện viên có thể giúp đỡ là dành thời gian cho những đứa trẻ này và hỗ trợ giáo dục cho các em. Chẳng hạn, tình nguyện viên có thể dạy các em các môn học cơ bản hoặc giúp làm bài tập về nhà, điều này có thể tạo ra sự khác biệt lớn trong việc học của các em. Hơn nữa, việc hỗ trợ tinh thần và động viên có thể mang lại lợi ích lớn cho các em, giúp các em cảm thấy tự tin và được coi trọng hơn.<br><br>Ngoài ra, tình nguyện viên có thể giúp đỡ bằng cách tổ chức các hoạt động hoặc cung cấp các vật dụng thiết yếu như sách, quần áo hoặc thực phẩm. Điều này không chỉ giúp đáp ứng các nhu cầu cơ bản của các em mà còn cho các em thấy rằng mọi người quan tâm đến cuộc sống của các em, điều này có thể giúp các em cảm thấy có động lực hơn.<br><br>Bằng cách cống hiến thời gian và sức lực, tình nguyện viên có thể truyền cảm hứng hy vọng và thúc đẩy những đứa trẻ này phấn đấu cho một tương lai tốt đẹp hơn. Sự hỗ trợ này từ các tình nguyện viên có thể giúp các em vượt qua thách thức và sống một cuộc sống tích cực hơn. Giúp đỡ theo cách này, làm tình nguyện hỗ trợ trẻ em khó khăn là một cách có ý nghĩa để tạo ra tác động lâu dài đến cuộc sống của các em.</div>
+        </div>
+      </div>
+
+      <h3 class="passage-title" style="font-size: 1rem; margin-top: 20px;">📖 Glossary (Bảng từ vựng Exercise 5)</h3>
+      <table class="glossary-table">
+        <thead>
+          <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Disadvantaged</td><td>adj</td><td>Thua thiệt, hoàn cảnh khó khăn</td></tr>
+          <tr><td>Educational support</td><td>n phr</td><td>Hỗ trợ giáo dục</td></tr>
+          <tr><td>Strive for</td><td>v phr</td><td>Phấn đấu hướng tới</td></tr>
+          <tr><td>Lasting impact</td><td>n phr</td><td>Tác động lâu dài</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PASSAGE 3: EXERCISE 6 - NURSING HOME -->
+    <div class="passage-content" id="passage3">
+      <h2 class="passage-title">READING PASSAGE: VOLUNTEERING IN A NURSING HOME</h2>
+      <div class="paragraph-box" id="p_ex6">
+        <span id="s_ex6_1">Volunteering in a nursing home is a wonderful way to make a positive impact on the lives of the elderly.</span>
+        <span id="s_ex6_2">Many seniors living in nursing homes feel lonely or isolated, and having volunteers visit can brighten their day.</span>
+        <span id="s_ex6_3">Volunteers can help by talking with the residents, reading to them, or even playing games.</span>
+        <span id="s_ex6_4">These simple activities can make a big difference in a resident's mood and overall well-being.</span>
+        <span id="s_ex6_5">Some volunteers also assist with daily tasks like serving meals or organizing events.</span>
+        <br><br>
+        <span id="s_ex6_6">Volunteering in a nursing home is not only beneficial to the elderly but also rewarding for the volunteers.</span>
+        <span id="s_ex6_7">It teaches <u>them</u> patience, empathy, and understanding.</span>
+        <span id="s_ex6_8">Volunteers often form strong connections with the residents and learn <u>valuable</u> life lessons from their stories and experiences.</span>
+        <span id="s_ex6_9">Nursing homes rely on volunteers to help create a warm and supportive environment where residents feel cared for and valued.</span>
+        <span id="s_ex6_10">By giving just a few hours of their time each week, volunteers can have a lasting impact on someone's life.</span>
+        
+        <div>
+          <button class="btn-translate" onclick="toggleTranslation('t_ex6')">Mở dịch toàn bài 🌟</button>
+          <div class="translation-text" id="t_ex6">Tình nguyện tại viện dưỡng lão là một cách tuyệt vời để tạo ra tác động tích cực đến cuộc sống của người cao tuổi. Nhiều người cao tuổi sống trong viện dưỡng lão cảm thấy cô đơn hoặc bị cô lập, và việc có các tình nguyện viên đến thăm có thể làm bừng sáng ngày mới của họ. Tình nguyện viên có thể giúp đỡ bằng cách trò chuyện với cư dân, đọc sách cho họ nghe hoặc thậm chí chơi trò chơi. Những hoạt động đơn giản này có thể tạo ra sự khác biệt lớn đối với tâm trạng và sức khỏe tổng thể của cư dân. Một số tình nguyện viên cũng hỗ trợ các công việc hàng ngày như phục vụ bữa ăn hoặc tổ chức các sự kiện.<br><br>Tình nguyện tại viện dưỡng lão không chỉ có lợi cho người cao tuổi mà còn mang lại sự đền đáp xứng đáng cho các tình nguyện viên. Nó dạy cho họ sự kiên nhẫn, lòng thấu cảm và sự thấu hiểu. Tình nguyện viên thường tạo dựng mối kết nối mạnh mẽ với cư dân và học được những bài học cuộc sống quý giá từ các câu chuyện và trải nghiệm của họ. Các viện dưỡng lão dựa vào các tình nguyện viên để giúp tạo ra một môi trường ấm áp và hỗ trợ, nơi các cư dân cảm thấy được chăm sóc và trân trọng. Bằng cách dành ra chỉ vài giờ mỗi tuần, các tình nguyện viên có thể tạo ra tác động lâu dài đến cuộc sống của ai đó.</div>
+        </div>
+      </div>
+
+      <h3 class="passage-title" style="font-size: 1rem; margin-top: 20px;">📖 Glossary (Bảng từ vựng Exercise 6)</h3>
+      <table class="glossary-table">
+        <thead>
+          <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nursing home</td><td>n phr</td><td>Viện dưỡng lão</td></tr>
+          <tr><td>Brighten one's day</td><td>v phr</td><td>Làm ai đó vui vẻ/sáng khoái hơn</td></tr>
+          <tr><td>Empathy</td><td>n</td><td>Sự thấu cảm</td></tr>
+          <tr><td>Valuable</td><td>adj</td><td>Quý giá, hữu ích (= helpful)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PASSAGE 4: EXERCISE 7 - COMMUNITY BENEFITS -->
+    <div class="passage-content" id="passage4">
+      <h2 class="passage-title">READING PASSAGE: COMMUNITY VOLUNTEERING BENEFITS</h2>
+      <div class="paragraph-box" id="p_ex7">
+        <span id="s_ex7_1">Volunteering in the community offers numerous benefits for both the individuals who give their time and the communities they help.</span>
+        <span id="s_ex7_2">One of the main advantages is the positive impact on mental health.</span>
+        <span id="s_ex7_3">Studies show that people who volunteer regularly feel happier and less stressed.</span>
+        <span id="s_ex7_4">Engaging with others and contributing to a cause fosters a sense of belonging, which can reduce feelings of loneliness or isolation.</span>
+        <br><br>
+        <span id="s_ex7_5">Volunteering also provides opportunities to develop new skills.</span>
+        <span id="s_ex7_6">Whether it's organizing events, working on a team, or learning how to communicate more effectively, these are all valuable skills that can help in both personal and professional life.</span>
+        <span id="s_ex7_7">Many people who volunteer say that they gain <u>confidence</u> and a sense of purpose from helping others.</span>
+        <br><br>
+        <span id="s_ex7_8">In addition, volunteering strengthens community ties.</span>
+        <span id="s_ex7_9">When people work together to solve local problems—whether it's cleaning up a park, assisting at a food bank, or mentoring young people—it creates a more connected and supportive environment.</span>
+        <span id="s_ex7_10"><u>This</u> helps build trust and understanding among community members, leading to a stronger, more resilient society.</span>
+        <span id="s_ex7_11">Moreover, volunteering can offer physical health benefits.</span>
+        <span id="s_ex7_12">Studies suggest that those who volunteer tend to have lower blood pressure and live longer than those who don't.</span>
+        <span id="s_ex7_13">Physical activity involved in certain volunteer activities, like planting trees or <u>participating in</u> charity walks, can improve fitness as well.</span>
+        <br><br>
+        <span id="s_ex7_14">In conclusion, the benefits of volunteering extend far beyond just helping others.</span>
+        <span id="s_ex7_15">It's a way to improve mental and physical health, build new skills, and create a sense of community.</span>
+        <span id="s_ex7_16">By volunteering, people not only make their neighborhoods better places to live but also enhance their own well-being.</span>
+        
+        <div>
+          <button class="btn-translate" onclick="toggleTranslation('t_ex7')">Mở dịch toàn bài 🌟</button>
+          <div class="translation-text" id="t_ex7">Tình nguyện trong cộng đồng mang lại vô số lợi ích cho cả những cá nhân trao đi thời gian của họ và cộng đồng mà họ giúp đỡ. Một trong những lợi ích chính là tác động tích cực đến sức khỏe tinh thần. Các nghiên cứu cho thấy những người làm tình nguyện thường xuyên cảm thấy hạnh phúc hơn và bớt căng thẳng hơn. Tương tác với người khác và đóng góp cho một mục tiêu chung sẽ nuôi dưỡng cảm giác thuộc về, điều này có thể làm giảm cảm giác cô đơn hoặc cô lập.<br><br>Làm tình nguyện cũng mang lại cơ hội phát triển các kỹ năng mới. Cho dù đó là tổ chức các sự kiện, làm việc trong một nhóm hay học cách giao tiếp hiệu quả hơn, đây đều là những kỹ năng quý giá có thể giúp ích trong cả cuộc sống cá nhân và công việc. Nhiều người làm tình nguyện nói rằng họ đạt được sự tự tin và ý thức về mục đích sống từ việc giúp đỡ người khác.<br><br>Ngoài ra, làm tình nguyện thắt chặt các mối quan hệ cộng đồng. Khi mọi người cùng nhau làm việc để giải quyết các vấn đề địa phương—cho dù đó là dọn dẹp công viên, hỗ trợ tại ngân hàng thực phẩm hay hướng dẫn người trẻ—điều đó tạo ra một môi trường kết nối và hỗ trợ hơn. Điều này giúp xây dựng lòng tin và sự thấu hiểu giữa các thành viên cộng đồng, dẫn đến một xã hội kiên cường và vững mạnh hơn. Hơn nữa, làm tình nguyện có thể mang lại lợi ích về sức khỏe thể chất. Các nghiên cứu gợi ý rằng những người làm tình nguyện có xu hướng có huyết áp thấp hơn và sống lâu hơn những người không làm. Hoạt động thể chất liên quan đến các hoạt động tình nguyện nhất định, như trồng cây hoặc tham gia các cuộc đi bộ từ thiện, cũng có thể cải thiện thể lực.<br><br>Tóm lại, lợi ích của việc làm tình nguyện mở rộng vượt xa việc chỉ giúp đỡ người khác. Đó là một cách để cải thiện sức khỏe tinh thần và thể chất, xây dựng kỹ năng mới và tạo ra cảm giác cộng đồng. Bằng cách làm tình nguyện, mọi người không chỉ làm cho xóm giềng của họ trở thành những nơi tốt đẹp hơn để sống mà còn nâng cao sức khỏe hạnh phúc của chính họ.</div>
+        </div>
+      </div>
+
+      <h3 class="passage-title" style="font-size: 1rem; margin-top: 20px;">📖 Glossary (Bảng từ vựng Exercise 7)</h3>
+      <table class="glossary-table">
+        <thead>
+          <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Foster</td><td>v</td><td>Nuôi dưỡng, vun đắp</td></tr>
+          <tr><td>Confidence</td><td>n</td><td>Sự tự tin (Opp: uncertainty)</td></tr>
+          <tr><td>Participating in</td><td>phr v</td><td>Tham gia vào (= taking part in)</td></tr>
+          <tr><td>Resilient</td><td>adj</td><td>Kiên cường, có sức bật tốt</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANE -->
+  <div class="pane" id="rightPane">
+    
+    <!-- EXERCISE 4 QUESTIONS -->
+    <div class="exercise-content active" id="exercise1">
+      <h2 class="passage-title">✏️ BÀI TẬP: EXERCISE 4 (CLOZE TEXT - GENERAL VOLUNTEERING)</h2>
+
+      <!-- Q1 -->
+      <div class="question-card" id="qCard_ex4_1">
+        <div class="question-text">1. Whether it's helping at a local food bank, (1) _______ in a homeless shelter, or tutoring children...</div>
+        <div class="options-grid" id="q_ex4_1_options">
+          <button class="option-btn" onclick="checkMCQ('ex4_1', this, true)">A. working</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_1', this, false)">B. staying</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_1', this, false)">C. living</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_1', this, false)">D. sleeping</button>
+        </div>
+        <div class="explanation-box" id="exp_ex4_1">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "Cho dù đó là giúp đỡ tại ngân hàng thực phẩm, (1) _______ tại mái ấm người vô gia cư, hay dạy kèm trẻ em..."</div>
+          <div class="exp-step"><strong>2. Cấu trúc song song & ngữ cảnh:</strong> Cụm "working in a homeless shelter" (làm việc tại mái ấm) là hoạt động tình nguyện song song với "helping" và "tutoring".</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> "working" thể hiện hành động làm việc tình nguyện cống hiến.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> Staying (ở lại), living (sống ở đó), sleeping (ngủ) miêu tả trạng thái của người cư trú trong mái ấm, không phải hoạt động của tình nguyện viên. <br><button class="locate-btn" onclick="scrollToElement('s_ex4_3')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-card" id="qCard_ex4_2">
+        <div class="question-text">2. Volunteering does not only benefit the people you help, but it can also (2) _______ your own confidence.</div>
+        <div class="options-grid" id="q_ex4_2_options">
+          <button class="option-btn" onclick="checkMCQ('ex4_2', this, false)">A. involve</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_2', this, false)">B. donate</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_2', this, true)">C. boost</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_2', this, false)">D. access</button>
+        </div>
+        <div class="explanation-box" id="exp_ex4_2">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "Làm tình nguyện không chỉ có lợi cho những người bạn giúp đỡ, mà nó còn có thể (2) _______ sự tự tin của chính bạn."</div>
+          <div class="exp-step"><strong>2. Phân tích Collocation:</strong> "boost one's confidence" (thúc đẩy / nâng cao sự tự tin của ai).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn C?</strong> "boost" ghép với confidence thành cụm từ mang nghĩa gia tăng sự tự tin.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, D sai?</strong> Involve (liên quan); Donate (quyên góp); Access (truy cập) không đi với 'confidence'. <br><button class="locate-btn" onclick="scrollToElement('s_ex4_4')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-card" id="qCard_ex4_3">
+        <div class="question-text">3. ...they felt cheerful and rewarded while they (3) _______ volunteer to help people in need.</div>
+        <div class="options-grid" id="q_ex4_3_options">
+          <button class="option-btn" onclick="checkMCQ('ex4_3', this, false)">A. was doing</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_3', this, false)">B. did</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_3', this, false)">C. did do</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_3', this, true)">D. were doing</button>
+        </div>
+        <div class="explanation-box" id="exp_ex4_3">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "...họ cảm thấy vui vẻ khi họ (3) _______ làm công việc tình nguyện..."</div>
+          <div class="exp-step"><strong>2. Ngữ pháp hòa hợp thì:</strong> Đứng sau "while" diễn tả hành động đang diễn ra trong quá khứ ("were doing"). Chủ ngữ "they" đi với động từ to be quá khứ "were".</div>
+          <div class="exp-step"><strong>3. Tại sao chọn D?</strong> "were doing" đúng thì Quá khứ tiếp diễn đi với liên từ 'while' và chủ ngữ 'they'.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, C sai?</strong> A sai chủ ngữ ('they' đi với 'were', không đi với 'was'); B & C không diễn tả tính tiếp diễn sau 'while'. <br><button class="locate-btn" onclick="scrollToElement('s_ex4_6')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-card" id="qCard_ex4_4">
+        <div class="question-text">4. (4) _______, volunteering can teach you new skills...</div>
+        <div class="options-grid" id="q_ex4_4_options">
+          <button class="option-btn" onclick="checkMCQ('ex4_4', this, false)">A. However</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_4', this, true)">B. Additionally</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_4', this, false)">C. Therefore</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_4', this, false)">D. Although</button>
+        </div>
+        <div class="explanation-box" id="exp_ex4_4">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "(4) _______, làm tình nguyện có thể dạy bạn các kỹ năng mới..."</div>
+          <div class="exp-step"><strong>2. Từ nối liên kết:</strong> Các câu trước đang khen lợi ích của tình nguyện, câu này tiếp tục bổ sung thêm một lợi ích khác -> Dùng trạng từ liên kết bổ sung "Additionally" (Ngoài ra).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "Additionally" dùng bổ sung thêm thông tin cùng chiều tích cực.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> However (Tuy nhiên - chỉ tương phản); Therefore (Vì vậy - chỉ kết quả); Although (Mặc dù - liên từ nhượng bộ không đứng độc lập trước dấu phẩy). <br><button class="locate-btn" onclick="scrollToElement('s_ex4_7')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-card" id="qCard_ex4_5">
+        <div class="question-text">5. In the end, the time you give (5) _______ makes the world a better place...</div>
+        <div class="options-grid" id="q_ex4_5_options">
+          <button class="option-btn" onclick="checkMCQ('ex4_5', this, false)">A. hardly</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_5', this, false)">B. never</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_5', this, true)">C. really</button>
+          <button class="option-btn" onclick="checkMCQ('ex4_5', this, false)">D. almost</button>
+        </div>
+        <div class="explanation-box" id="exp_ex4_5">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "Cuối cùng, thời gian bạn trao đi (5) _______ làm cho thế giới trở thành một nơi tốt đẹp hơn..."</div>
+          <div class="exp-step"><strong>2. Phân tích ngữ nghĩa:</strong> Trạng từ nhấn mạnh tính thực tế và chân thật của tác động -> "really" (thực sự).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn C?</strong> "really" nhấn mạnh ý khẳng định thời gian bạn bỏ ra thực sự mang lại ý nghĩa.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, D sai?</strong> Hardly (hầu như không), Never (không bao giờ) mang nghĩa phủ định tiêu cực; Almost (suýt nữa/hầu như) không đi trực tiếp nhấn mạnh động từ 'makes' ở đây. <br><button class="locate-btn" onclick="scrollToElement('s_ex4_8')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE 5 QUESTIONS -->
+    <div class="exercise-content" id="exercise2">
+      <h2 class="passage-title">✏️ BÀI TẬP: EXERCISE 5 (GAP FITTING - DISADVANTAGED KIDS)</h2>
+
+      <!-- Q1 -->
+      <div class="question-card" id="qCard_ex5_1">
+        <div class="question-text">1. This situation occurs because (1) _______.</div>
+        <div class="options-grid" id="q_ex5_1_options">
+          <button class="option-btn" onclick="checkMCQ('ex5_1', this, true)">A. many children lack the necessary resources</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_1', this, false)">B. children always have enough resources</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_1', this, false)">C. schools are too easy for disadvantaged children</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_1', this, false)">D. all children have access to education</button>
+        </div>
+        <div class="explanation-box" id="exp_ex5_1">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "Tình trạng này xảy ra bởi vì (1) _______."</div>
+          <div class="exp-step"><strong>2. Logic nguyên nhân:</strong> Câu trước nói trẻ em không được tiếp cận giáo dục, y tế, bữa ăn -> Nguyên nhân là do nhiều trẻ em thiếu các nguồn lực cần thiết ("many children lack the necessary resources").</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> Đáp án A giải thích chính xác nguyên nhân dẫn đến hoàn cảnh khó khăn của các em.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B, C, D đều phát biểu trái ngược với thực tế hoàn cảnh thiếu thốn của trẻ em nghèo. <br><button class="locate-btn" onclick="scrollToElement('s_ex5_3')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-card" id="qCard_ex5_2">
+        <div class="question-text">2. (2) _______, volunteers can teach them basic subjects or help with homework...</div>
+        <div class="options-grid" id="q_ex5_2_options">
+          <button class="option-btn" onclick="checkMCQ('ex5_2', this, false)">A. On the other hand</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_2', this, true)">B. For instance</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_2', this, false)">C. As a result</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_2', this, false)">D. Despite this</button>
+        </div>
+        <div class="explanation-box" id="exp_ex5_2">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "(2) _______, tình nguyện viên có thể dạy các em các môn học cơ bản..."</div>
+          <div class="exp-step"><strong>2. Mối quan hệ liên kết:</strong> Câu trước nói hỗ trợ giáo dục ("educational support"), câu này đưa ra ví dụ cụ thể (dạy môn cơ bản, giúp làm bài tập) -> Dùng cụm từ nối đưa ví dụ "For instance" (Chẳng hạn).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "For instance" mở đầu cho ví dụ làm rõ ý của câu liền trước.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> On the other hand (Mặt khác - tương phản); As a result (Kết quả là); Despite this (Mặc dù vậy) sai mối quan hệ diễn đạt. <br><button class="locate-btn" onclick="scrollToElement('s_ex5_6')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-card" id="qCard_ex5_3">
+        <div class="question-text">3. ...greatly benefit these children, (3) _______.</div>
+        <div class="options-grid" id="q_ex5_3_options">
+          <button class="option-btn" onclick="checkMCQ('ex5_3', this, true)">A. making them feel more confident and valued</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_3', this, false)">B. causing them to feel more isolated and alone</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_3', this, false)">C. leading to a decrease in their happiness</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_3', this, false)">D. making them rely completely on others</button>
+        </div>
+        <div class="explanation-box" id="exp_ex5_3">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "...mang lại lợi ích lớn cho những đứa trẻ này, (3) _______."</div>
+          <div class="exp-step"><strong>2. Phân tích kết quả tích cực:</strong> Vế trước nói về lợi ích của sự động viên tinh thần ("emotional support and encouragement") -> Kết quả là giúp các em cảm thấy tự tin và được trân trọng hơn ("making them feel more confident and valued").</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> A thể hiện mệnh đề phân từ chỉ kết quả tích cực trùng khớp với lợi ích động viên tinh thần.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B (thấy bị cô lập) & C (giảm hạnh phúc) là tiêu cực; D không phải là mục đích tốt đẹp của hỗ trợ tinh thần. <br><button class="locate-btn" onclick="scrollToElement('s_ex5_7')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-card" id="qCard_ex5_4">
+        <div class="question-text">4. ...shows them that people care about their well-being, (4) _______.</div>
+        <div class="options-grid" id="q_ex5_4_options">
+          <button class="option-btn" onclick="checkMCQ('ex5_4', this, true)">A. which can help them feel more motivated</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_4', this, false)">B. which negatively impacts their life</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_4', this, false)">C. that harms them even more</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_4', this, false)">D. that makes them forget their challenges</button>
+        </div>
+        <div class="explanation-box" id="exp_ex5_4">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "...cho các em thấy mọi người quan tâm đến cuộc sống của mình, (4) _______."</div>
+          <div class="exp-step"><strong>2. Phân tích mệnh đề quan hệ không xác định:</strong> Dùng "which + V" đứng sau dấu phẩy bổ nghĩa cho cả vế trước. Sự quan tâm của cộng đồng giúp các em có thêm động lực ("which can help them feel more motivated").</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> "which can help them feel more motivated" vừa đúng ngữ pháp mệnh đề quan hệ đứng sau dấu phẩy vừa mang ý nghĩa tích cực.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B & C mang ý nghĩa tiêu cực tác động xấu; D không thể hiện việc nâng cao động lực vươn lên. <br><button class="locate-btn" onclick="scrollToElement('s_ex5_9')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-card" id="qCard_ex5_5">
+        <div class="question-text">5. (5) _______ can help them overcome challenges and lead a more positive life.</div>
+        <div class="options-grid" id="q_ex5_5_options">
+          <button class="option-btn" onclick="checkMCQ('ex5_5', this, true)">A. This support from volunteers</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_5', this, false)">B. No effort from volunteers</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_5', this, false)">C. Ignoring their problems</button>
+          <button class="option-btn" onclick="checkMCQ('ex5_5', this, false)">D. Preventing any involvement</button>
+        </div>
+        <div class="explanation-box" id="exp_ex5_5">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "(5) _______ có thể giúp các em vượt qua thách thức và sống tích cực hơn."</div>
+          <div class="exp-step"><strong>2. Phân tích chủ ngữ:</strong> Câu trước vừa nói đến sự cống hiến thời gian sức lực của tình nguyện viên -> Chủ ngữ tóm tắt ở câu này là "This support from volunteers" (Sự hỗ trợ này từ các tình nguyện viên).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> A vừa đóng vai trò chủ ngữ đúng ngữ pháp vừa tạo tính liên kết thay thế cho vế trước.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B (Không có nỗ lực), C (Phớt lờ vấn đề), D (Ngăn cản sự tham gia) đều mang nghĩa tiêu cực. <br><button class="locate-btn" onclick="scrollToElement('s_ex5_11')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-card" id="qCard_ex6_6">
+        <div class="question-text">6. (6) _______, volunteering to support disadvantaged children is a meaningful way...</div>
+        <div class="options-grid" id="q_ex6_6_options">
+          <button class="option-btn" onclick="checkMCQ('ex6_6', this, true)">A. Helping in this way</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_6', this, false)">B. Ignoring this issue</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_6', this, false)">C. By disregarding them</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_6', this, false)">D. To avoiding any effort</button>
+        </div>
+        <div class="explanation-box" id="exp_ex6_6">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> "(6) _______, làm tình nguyện hỗ trợ trẻ em khó khăn là một cách có ý nghĩa..."</div>
+          <div class="exp-step"><strong>2. Phân tích ngữ pháp & ý nghĩa:</strong> Cụm danh động từ hoặc phân từ đồng chủ ngữ "Helping in this way" (Giúp đỡ theo cách này) kết lại nhận định về các hành động tình nguyện trong bài.</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> "Helping in this way" tạo vế mở đầu đút kết đúng tinh thần hỗ trợ tích cực.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B (Phớt lờ vấn đề), C (Coi thường các em), D (Tránh né nỗ lực) đều mang ý nghĩa tiêu cực hoàn toàn sai. <br><button class="locate-btn" onclick="scrollToElement('s_ex5_12')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE 6 QUESTIONS -->
+    <div class="exercise-content" id="exercise3">
+      <h2 class="passage-title">✏️ BÀI TẬP: EXERCISE 6 (READING COMPREHENSION - NURSING HOME)</h2>
+
+      <!-- Q1 -->
+      <div class="question-card" id="qCard_ex6_1">
+        <div class="question-text">Question 1: What is the main idea of the passage?</div>
+        <div class="options-grid" id="q_ex6_1_options">
+          <button class="option-btn" onclick="checkMCQ('ex6_1', this, false)">A. The importance of organizing events.</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_1', this, false)">B. Ways to make residents feel valued.</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_1', this, true)">C. Benefits of volunteering in nursing homes.</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_1', this, false)">D. How to play games with elderly residents.</button>
+        </div>
+        <div class="explanation-box" id="exp_ex6_1">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Ý chính của đoạn văn là gì?</div>
+          <div class="exp-step"><strong>2. Phân tích bố cục:</strong> Đoạn 1 trình bày lợi ích của tình nguyện đối với người cao tuổi trong viện dưỡng lão; Đoạn 2 trình bày lợi ích đối với chính các tình nguyện viên.</div>
+          <div class="exp-step"><strong>3. Tại sao chọn C?</strong> "Benefits of volunteering in nursing homes" bao quát toàn bộ nội dung hai chiều lợi ích ở cả 2 đoạn.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, D sai?</strong> A, B, D chỉ là các chi tiết ví dụ nhỏ nêu trong các hoạt động cụ thể ở đoạn 1. <br><button class="locate-btn" onclick="scrollToElement('s_ex6_1')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-card" id="qCard_ex6_2">
+        <div class="question-text">Question 2: What does the word "them" in the 2nd paragraph refer to?</div>
+        <div class="options-grid" id="q_ex6_2_options">
+          <button class="option-btn" onclick="checkMCQ('ex6_2', this, false)">A. residents</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_2', this, true)">B. volunteers</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_2', this, false)">C. events</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_2', this, false)">D. activities</button>
+        </div>
+        <div class="explanation-box" id="exp_ex6_2">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Từ "them" ở đoạn 2 quy chiếu đến từ nào?</div>
+          <div class="exp-step"><strong>2. Dẫn chứng ngữ cảnh:</strong> "Volunteering in a nursing home is not only beneficial to the elderly but also rewarding for the <u>volunteers</u>. It teaches **them** patience, empathy..." (nó dạy cho **họ** [các tình nguyện viên] sự kiên nhẫn...).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "them" thay thế cho danh từ "volunteers" đứng ở câu liền trước.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> Residents (cụ ông cụ bà là đối tượng được dạy/truyền kinh nghiệm, không phải người học sự kiên nhẫn từ hoạt động này); Events & Activities không thể hiện được tính từ nhận bài học tính cách. <br><button class="locate-btn" onclick="scrollToElement('s_ex6_7')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-card" id="qCard_ex6_3">
+        <div class="question-text">Question 3: The word "valuable" in the 2nd paragraph is closest in meaning to ______.</div>
+        <div class="options-grid" id="q_ex6_3_options">
+          <button class="option-btn" onclick="checkMCQ('ex6_3', this, false)">A. expensive</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_3', this, true)">B. helpful</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_3', this, false)">C. caring</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_3', this, false)">D. emotional</button>
+        </div>
+        <div class="explanation-box" id="exp_ex6_3">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Từ "valuable" (quý giá/bổ ích) ở đoạn 2 gần nghĩa nhất với từ nào?</div>
+          <div class="exp-step"><strong>2. Phân tích:</strong> "valuable life lessons" = bài học cuộc sống bổ ích/có ích (= helpful life lessons).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "helpful" (có ích, giúp ích nhiều) phản ánh chính xác giá trị bài học kinh nghiệm sống.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> Expensive (đắt tiền vật chất); Caring (quan tâm); Emotional (thuộc cảm xúc) không thay thế chuẩn nghĩa bài học quý giá. <br><button class="locate-btn" onclick="scrollToElement('s_ex6_8')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-card" id="qCard_ex6_4">
+        <div class="question-text">Question 4: According to the passage, what is one of the reasons seniors benefit from volunteers?</div>
+        <div class="options-grid" id="q_ex6_4_options">
+          <button class="option-btn" onclick="checkMCQ('ex6_4', this, false)">A. volunteers help them exercise.</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_4', this, true)">B. volunteers reduce their loneliness.</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_4', this, false)">C. volunteers provide medical care.</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_4', this, false)">D. volunteers teach them new skills.</button>
+        </div>
+        <div class="explanation-box" id="exp_ex6_4">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Theo đoạn văn, lý do nào làm cho người cao tuổi nhận được lợi ích từ tình nguyện viên?</div>
+          <div class="exp-step"><strong>2. Dẫn chứng bài đọc:</strong> "Many seniors living in nursing homes feel lonely or isolated, and having volunteers visit can brighten their day." (giúp họ đỡ cô đơn hơn).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "volunteers reduce their loneliness" trùng khớp với ý nghĩa xua tan cảm giác lonely/isolated.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> A (tập thể dục), C (chăm sóc y tế), D (dạy kỹ năng mới) đều KHÔNG được đề cập trong bài đối với các cụ trong viện dưỡng lão. <br><button class="locate-btn" onclick="scrollToElement('s_ex6_2')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-card" id="qCard_ex6_5">
+        <div class="question-text">Question 5: Which activity is NOT mentioned as something volunteers do in a nursing home?</div>
+        <div class="options-grid" id="q_ex6_5_options">
+          <button class="option-btn" onclick="checkMCQ('ex6_5', this, false)">A. Playing games with residents</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_5', this, false)">B. Helping with daily tasks</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_5', this, false)">C. Organizing events</button>
+          <button class="option-btn" onclick="checkMCQ('ex6_5', this, true)">D. Providing professional care</button>
+        </div>
+        <div class="explanation-box" id="exp_ex6_5">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Hoạt động nào KHÔNG ĐƯỢC ĐỀ CẬP là việc tình nguyện viên làm ở viện dưỡng lão?</div>
+          <div class="exp-step"><strong>2. Phân tích đối chiếu:</strong>
+            <ul>
+              <li>Playing games -> Có ở câu 3 ("playing games").</li>
+              <li>Helping with daily tasks -> Có ở câu 5 ("daily tasks like serving meals").</li>
+              <li>Organizing events -> Có ở câu 5 ("organizing events").</li>
+              <li>Providing professional care -> KHÔNG CÓ (tình nguyện viên không cung cấp dịch vụ y tế chuyên nghiệp).</li>
+            </ul>
+          </div>
+          <div class="exp-step"><strong>3. Tại sao chọn D?</strong> "Providing professional care" hoàn toàn không được nhắc tới.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, C không chọn?</strong> A, B, C đều có trích dẫn xuất hiện rõ ràng trong bài. <br><button class="locate-btn" onclick="scrollToElement('s_ex6_3')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE 7 QUESTIONS -->
+    <div class="exercise-content" id="exercise4">
+      <h2 class="passage-title">✏️ BÀI TẬP: EXERCISE 7 (READING COMPREHENSION - COMMUNITY BENEFITS)</h2>
+
+      <!-- Q1 -->
+      <div class="question-card" id="qCard_ex7_1">
+        <div class="question-text">Question 1: What is the main idea of the passage?</div>
+        <div class="options-grid" id="q_ex7_1_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_1', this, false)">A. How volunteering helps improve physical and mental fitness.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_1', this, true)">B. The positive aspects of volunteering for people and the community.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_1', this, false)">C. Ways to acquire and enhance new skills through volunteering.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_1', this, false)">D. The impact of volunteering on both physical and mental health.</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_1">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Ý chính của đoạn văn là gì?</div>
+          <div class="exp-step"><strong>2. Phân tích bố cục bài đọc:</strong> Ngay câu đầu tiên bài viết nêu rõ: "offers numerous benefits for both the individuals... and the communities they help." Xuyên suốt các đoạn phân tích lợi ích cho cá nhân (sức khỏe tinh thần, kỹ năng, thể chất) và cho cộng đồng (kết nối, xã hội vững mạnh).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "The positive aspects of volunteering for people and the community" bao quát hai khía cạnh lớn nhất của bài.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> A, C, D chỉ tập trung vào khía cạnh cá nhân (kỹ năng hoặc sức khỏe) mà bỏ qua khía cạnh lợi ích cho cộng đồng. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_1')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-card" id="qCard_ex7_2">
+        <div class="question-text">Question 2: The word "participating in" in paragraph 3 is closest in meaning to ______.</div>
+        <div class="options-grid" id="q_ex7_2_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_2', this, false)">A. paying attention</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_2', this, false)">B. making difference</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_2', this, true)">C. taking part in</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_2', this, false)">D. contributing to</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_2">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Cụm từ "participating in" (tham gia vào) ở đoạn 3 gần nghĩa nhất với từ nào?</div>
+          <div class="exp-step"><strong>2. Phân tích:</strong> "Participating in" = "Taking part in" (tham gia vào một hoạt động).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn C?</strong> "taking part in" là cụm động từ đồng nghĩa hoàn toàn với 'participating in'.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, D sai?</strong> Paying attention (chú ý); Making difference (tạo khác biệt); Contributing to (đóng góp vào) không đồng nghĩa trực tiếp với việc tham gia sự kiện. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_13')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-card" id="qCard_ex7_3">
+        <div class="question-text">Question 3: The word "confidence" in paragraph 2 is opposite in meaning to ______.</div>
+        <div class="options-grid" id="q_ex7_3_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_3', this, false)">A. fearlessness</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_3', this, false)">B. boldness</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_3', this, true)">C. uncertainty</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_3', this, false)">D. disadvantage</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_3">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Từ "confidence" (sự tự tin) ở đoạn 2 TRÁI NGHĨA với từ nào?</div>
+          <div class="exp-step"><strong>2. Phân tích:</strong> "Confidence" là cảm giác chắc chắn, tự tin vào bản thân. Từ trái nghĩa là "uncertainty" (sự hoài nghi, không tự tin / thiếu chắc chắn).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn C?</strong> "uncertainty" mang ý nghĩa đối lập với sự tự tin tin tưởng vào bản thân.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, D sai?</strong> Fearlessness (sự không sợ hãi) & Boldness (sự táo bạo) là đồng nghĩa; Disadvantage (nhược điểm) không đối lập ngữ nghĩa trực tiếp với tâm lý tự tin. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_7')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-card" id="qCard_ex7_4">
+        <div class="question-text">Question 4: According to the passage, why is volunteering good for mental health?</div>
+        <div class="options-grid" id="q_ex7_4_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_4', this, false)">A. It allows people to work alone and focus.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_4', this, true)">B. It helps people feel connected to others.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_4', this, false)">C. It teaches important life lessons.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_4', this, false)">D. It gives people physical activity.</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_4">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Theo đoạn văn, tại sao làm tình nguyện lại tốt cho sức khỏe tinh thần?</div>
+          <div class="exp-step"><strong>2. Dẫn chứng bài đọc:</strong> "Engaging with others and contributing to a cause fosters a sense of belonging, which can reduce feelings of loneliness or isolation." (giúp mọi người gắn kết với người khác, bớt cô đơn).</div>
+          <div class="exp-step"><strong>3. Tại sao chọn B?</strong> "It helps people feel connected to others" phản ánh việc giảm bớt cô đơn và tạo cảm giác thuộc về cộng đồng.</div>
+          <div class="exp-step"><strong>4. Tại sao A, C, D sai?</strong> A ngược với thực tế (không phải làm việc một mình); C & D nói về khía cạnh kỹ năng và sức khỏe thể chất, không giải thích trực tiếp tác động tinh thần ở đoạn 1. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_4')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-card" id="qCard_ex7_5">
+        <div class="question-text">Question 5: The word "This" in paragraph 3 refers to ______.</div>
+        <div class="options-grid" id="q_ex7_5_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_5', this, true)">A. creating a supportive environment</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_5', this, false)">B. assisting at a food bank</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_5', this, false)">C. mentoring young people</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_5', this, false)">D. cleaning up parks</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_5">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Từ "This" ở đoạn 3 quy chiếu đến điều gì?</div>
+          <div class="exp-step"><strong>2. Dẫn chứng bài đọc:</strong> "When people work together... **it creates a more connected and supportive environment. This** helps build trust..."</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> "This" thay thế cho cả vế "creating a more connected and supportive environment" ở câu liền trước.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B, C, D chỉ là các ví dụ nhỏ nêu nằm trong mệnh đề phụ, không phải sự việc trực tiếp đứng ở vế chính trước từ 'This'. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_10')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-card" id="qCard_ex7_6">
+        <div class="question-text">Question 6: Which of the following is NOT mentioned as a benefit of volunteering?</div>
+        <div class="options-grid" id="q_ex7_6_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_6', this, false)">A. It helps people develop confidence.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_6', this, false)">B. It improves physical health.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_6', this, false)">C. It strengthens community bonds.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_6', this, true)">D. It increases job opportunities.</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_6">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Điều nào sau đây KHÔNG ĐƯỢC ĐỀ CẬP là một lợi ích của việc làm tình nguyện?</div>
+          <div class="exp-step"><strong>2. Phân tích đối chiếu:</strong>
+            <ul>
+              <li>Develop confidence -> Có ở đoạn 2 ("gain confidence").</li>
+              <li>Improves physical health -> Có ở đoạn 3 ("physical health benefits").</li>
+              <li>Strengthens community bonds -> Có ở đoạn 3 ("strengthens community ties").</li>
+              <li>Increases job opportunities -> KHÔNG ĐƯỢC ĐỀ CẬP trong bài viết này.</li>
+            </ul>
+          </div>
+          <div class="exp-step"><strong>3. Tại sao chọn D?</strong> "It increases job opportunities" không xuất hiện trong bài đọc.</div>
+          <div class="exp-step"><strong>4. Tại sao A, B, C không chọn?</strong> A, B, C đều có trích dẫn xuất hiện chính xác ở các đoạn 2 & 3. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_7')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-card" id="qCard_ex7_7">
+        <div class="question-text">Question 7: What can be inferred from the last paragraph?</div>
+        <div class="options-grid" id="q_ex7_7_options">
+          <button class="option-btn" onclick="checkMCQ('ex7_7', this, true)">A. Volunteering is beneficial for both individuals and their communities.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_7', this, false)">B. Physical activity is the most important part of volunteering.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_7', this, false)">C. People volunteer mainly to improve their personal health.</button>
+          <button class="option-btn" onclick="checkMCQ('ex7_7', this, false)">D. Volunteering should be required to build a stronger society.</button>
+        </div>
+        <div class="explanation-box" id="exp_ex7_7">
+          <div class="exp-step"><strong>1. Dịch câu hỏi:</strong> Có thể suy ra điều gì từ đoạn cuối cùng?</div>
+          <div class="exp-step"><strong>2. Phân tích suy luận:</strong> Đoạn cuối kết luận: "By volunteering, people not only make their neighborhoods better places to live but also enhance their own well-being." -> Mang lại lợi ích kép cho cả bản thân cá nhân và cộng đồng xung quanh.</div>
+          <div class="exp-step"><strong>3. Tại sao chọn A?</strong> "Volunteering is beneficial for both individuals and their communities" đút kết trọn vẹn ý nghĩa của câu kết bài.</div>
+          <div class="exp-step"><strong>4. Tại sao B, C, D sai?</strong> B & C sai lệch yếu tố quan trọng nhất; D (bắt buộc làm tình nguyện) hoàn toàn không có trong tư tưởng bài đọc. <br><button class="locate-btn" onclick="scrollToElement('s_ex7_16')">🖱️ Dẫn chứng đoạn văn</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Section -->
+    <div class="submit-container">
+      <button class="btn-submit" onclick="submitExam()">NỘP BÀI TẬP 🚀</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Kết quả -->
+<div class="modal-overlay" id="resultModal">
+  <div class="modal-card">
+    <h2 style="font-size: 1.8rem; color: var(--primary-pink-dark); margin-bottom: 10px;">🎉 KẾT QUẢ BÀI THI</h2>
+    <p style="font-size: 1.2rem; font-weight: 800; margin-bottom: 15px;" id="scoreText">Bạn đạt: 0 câu đúng</p>
+    <div id="feedbackText" style="font-size: 0.95rem; color: #4B5563; margin-bottom: 20px; font-weight: 700; line-height: 1.5;"></div>
+    <button class="btn-submit" onclick="closeModal()">ĐÓNG & XEM LẠI</button>
+  </div>
+</div>
+
+<script>
+  function switchPassage(passageNum) {
+    document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+      if (index + 1 === passageNum) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    document.querySelectorAll('.passage-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(`passage${passageNum}`).classList.add('active');
+
+    document.querySelectorAll('.exercise-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(`exercise${passageNum}`).classList.add('active');
+  }
+
+  // Web Audio API
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  function playSound(type) {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (type === 'correct') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    } else {
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(130.81, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.4);
+    }
+  }
+
+  // Timer Variables
+  let timeLeft = 1200; 
+  let timerInterval = null;
+  let isRunning = false;
+  let answeredQuestions = new Set();
+  let score = 0;
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById('timerDisplay').innerText = 
+      `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  function toggleTimer() {
+    const btn = document.getElementById('timerToggleBtn');
+    if (!isRunning) {
+      isRunning = true;
+      btn.innerText = "TẠM DỪNG";
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          alert("Đã hết giờ làm bài, vui lòng nộp bài nhé!");
+          disableInputs();
+        }
+      }, 1000);
+    } else {
+      isRunning = false;
+      btn.innerText = "TIẾP TỤC";
+      clearInterval(timerInterval);
+    }
+  }
+
+  function disableInputs() {
+    document.querySelectorAll('button.option-btn').forEach(el => el.disabled = true);
+  }
+
+  function updateProgress() {
+    const totalCards = document.querySelectorAll('.question-card').length;
+    const percentage = (answeredQuestions.size / totalCards) * 100;
+    document.getElementById('progressBar').style.width = `${percentage}%`;
+  }
+
+  function toggleTranslation(id) {
+    const el = document.getElementById(id);
+    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+  }
+
+  function checkMCQ(qId, btn, isCorrect) {
+    if (answeredQuestions.has(qId)) return;
+
+    const container = document.getElementById(`q_${qId}_options`);
+    const exp = document.getElementById(`exp_${qId}`);
+    const buttons = container.querySelectorAll('.option-btn');
+    
+    buttons.forEach(b => b.disabled = true);
+
+    if (isCorrect) {
+      btn.classList.add('correct');
+      playSound('correct');
+      confetti({ particleCount: 45, spread: 60, origin: { y: 0.8 } });
+      score++;
+    } else {
+      btn.classList.add('wrong');
+      playSound('wrong');
+      buttons.forEach(b => {
+        if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+      });
+    }
+
+    if(exp) exp.style.display = "block";
+    answeredQuestions.add(qId);
+    updateProgress();
+  }
+
+  function scrollToElement(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('target-highlight');
+      setTimeout(() => el.classList.remove('target-highlight'), 2000);
+    }
+  }
+
+  document.addEventListener('mouseup', function() {
+    const selection = window.getSelection();
+    if (!selection.isCollapsed) {
+      const range = selection.getRangeAt(0);
+      const span = document.createElement('span');
+      span.className = 'highlighted';
+      range.surroundContents(span);
+      selection.removeAllRanges();
+    }
+  });
+
+  function submitExam() {
+    clearInterval(timerInterval);
+    const modal = document.getElementById('resultModal');
+    const scoreText = document.getElementById('scoreText');
+    const feedbackText = document.getElementById('feedbackText');
+    
+    const totalAnswered = answeredQuestions.size || 1;
+    const percentage = Math.round((score / totalAnswered) * 100);
+    scoreText.innerText = `Bạn đạt: ${score}/${totalAnswered} câu đã làm (${percentage}%)`;
+
+    if (percentage < 50) {
+      feedbackText.innerText = "❤️ Ms Lê Hằng: Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+    } else if (percentage >= 50 && percentage <= 80) {
+      feedbackText.innerText = "👏 Ms Lê Hằng: Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+    } else if (percentage >= 90) {
+      feedbackText.innerText = "🌟 Ms Lê Hằng: Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha!";
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+    } else {
+      feedbackText.innerText = "👍 Con làm khá tốt! Hãy xem kỹ lại các câu sai ở phần giải thích nhé!";
+    }
+
+    modal.style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById('resultModal').style.display = "none";
+  }
+</script>
+</body>
+</html>
